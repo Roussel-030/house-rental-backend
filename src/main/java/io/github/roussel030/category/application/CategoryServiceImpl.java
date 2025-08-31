@@ -24,13 +24,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public CategoryResponse createCategory(CategoryRequest categoryRequest) {
-        if(categoryRepository.existsByName(categoryRequest.name())) {
+    public CategoryResponse createCategory(CategoryRequest request) {
+        if(categoryRepository.existsByName(request.name())) {
             throw new CategoryAlreadyExistsException("Category already exists");
         }
 
         Category category = Category.builder()
-                .name(categoryRequest.name())
+                .name(request.name())
                 .build();
         categoryRepository.save(category);
 

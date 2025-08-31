@@ -1,6 +1,10 @@
-package io.github.roussel030.category.api.dto;
+package io.github.roussel030.option.api.dto;
 
-public record CategoryResponse(Long id, String name) {
+public record OptionResponse(
+        Long id,
+        String name,
+        String icon
+) {
 
     public static Builder builder() {
         return new Builder();
@@ -9,6 +13,7 @@ public record CategoryResponse(Long id, String name) {
     public static class Builder {
         private Long id;
         private String name;
+        private String icon;
 
         public Builder id(Long id) {
             this.id = id;
@@ -20,8 +25,13 @@ public record CategoryResponse(Long id, String name) {
             return this;
         }
 
-        public CategoryResponse build() {
-            return new CategoryResponse(id, name);
+        public Builder icon(String icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public OptionResponse build() {
+            return new OptionResponse(id, name, icon);
         }
     }
 

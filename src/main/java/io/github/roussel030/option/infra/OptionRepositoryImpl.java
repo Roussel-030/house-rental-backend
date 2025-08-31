@@ -1,0 +1,51 @@
+package io.github.roussel030.option.infra;
+
+import io.github.roussel030.option.domain.Option;
+import io.github.roussel030.option.domain.OptionRepository;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+
+import java.util.List;
+import java.util.Optional;
+
+@ApplicationScoped
+public class OptionRepositoryImpl implements OptionRepository, PanacheRepository<Option> {
+
+    @Override
+    public void save(Option option) {
+        persist(option);
+    }
+
+    @Override
+    public List<Option> findAllPaginated(int page, int size) {
+        return findAll()
+                .page(page, size)
+                .list();
+    }
+
+    @Override
+    public void update(Option option) {
+        getEntityManager().merge(option);
+    }
+
+    @Override
+    public boolean removeById(Long id) {
+        return deleteById(id);
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return find("name", name).firstResultOptional().isPresent();
+    }
+
+    @Override
+    public Optional<Option> findByIdOptional(Long id) {
+        return PanacheRepository.super.findByIdOptional(id);
+    }
+
+    @Override
+    public long countAll() {
+        return count();
+    }
+
+}
