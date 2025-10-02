@@ -29,14 +29,13 @@ public class CategoryServiceImpl implements CategoryService {
             throw new CategoryAlreadyExistsException("Category already exists");
         }
 
-        Category category = Category.builder()
-                .name(request.name())
-                .build();
+        Category category = new Category();
+        category.setName(category.getName());
         categoryRepository.save(category);
 
         return CategoryResponse.builder()
-                .id(category.id)
-                .name(category.name)
+                .id(category.getId())
+                .name(category.getName())
                 .build();
     }
 
@@ -45,8 +44,8 @@ public class CategoryServiceImpl implements CategoryService {
         List<CategoryResponse> categories = categoryRepository.findAllPaginated(page, size)
                 .stream()
                 .map(category -> CategoryResponse.builder()
-                        .id(category.id)
-                        .name(category.name)
+                        .id(category.getId())
+                        .name(category.getName())
                         .build())
                 .toList();
 
@@ -66,17 +65,17 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findByIdOptional(id)
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
 
-        if (!category.name.equals(request.name()) &&
+        if (!category.getName().equals(request.name()) &&
                 categoryRepository.existsByName(request.name())) {
             throw new CategoryAlreadyExistsException("Category with this name already exists");
         }
 
-        category.name = request.name();
+        category.setName(request.name());
         categoryRepository.update(category);
 
         return CategoryResponse.builder()
-                .id(category.id)
-                .name(category.name)
+                .id(category.getId())
+                .name(category.getName())
                 .build();
     }
 

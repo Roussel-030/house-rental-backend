@@ -40,7 +40,7 @@ public class CategoryRepositoryImpl implements CategoryRepository, PanacheReposi
 
     @Override
     public Optional<Category> findByIdOptional(Long id) {
-        return PanacheRepository.super.findByIdOptional(id);
+        return find("id", id).firstResultOptional();
     }
 
     @Override
