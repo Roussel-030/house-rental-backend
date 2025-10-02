@@ -29,16 +29,15 @@ public class OptionServiceImpl implements OptionService {
             throw new OptionAlreadyExistsException("Option already exists");
         }
 
-        Option option = Option.builder()
-                .icon(request.icon())
-                .name(request.name())
-                .build();
+        Option option = new Option();
+        option.setIcon(request.icon());
+        option.setName(request.name());
         optionRepository.save(option);
 
         return OptionResponse.builder()
-                .id(option.id)
-                .icon(option.icon)
-                .name(option.name)
+                .id(option.getId())
+                .icon(option.getIcon())
+                .name(option.getName())
                 .build();
     }
 
@@ -47,9 +46,9 @@ public class OptionServiceImpl implements OptionService {
         List<OptionResponse> options = optionRepository.findAllPaginated(page, size)
                 .stream()
                 .map(option -> OptionResponse.builder()
-                        .id(option.id)
-                        .name(option.name)
-                        .icon(option.icon)
+                        .id(option.getId())
+                        .name(option.getName())
+                        .icon(option.getIcon())
                         .build())
                 .toList();
 
@@ -69,20 +68,20 @@ public class OptionServiceImpl implements OptionService {
         Option option = optionRepository.findByIdOptional(id)
                 .orElseThrow(() -> new OptionNotFoundException("Option not found with id: " + id));
 
-        if (!option.name.equals(request.name()) &&
+        if (!option.getName().equals(request.name()) &&
                 optionRepository.existsByName(request.name())) {
             throw new OptionAlreadyExistsException("Option with this name already exists");
         }
 
-        option.name = request.name();
-        option.icon = request.icon();
+        option.setName(request.name());
+        option.setIcon(request.icon());
 
         optionRepository.update(option);
 
         return OptionResponse.builder()
-                .id(option.id)
-                .name(option.name)
-                .icon(option.icon)
+                .id(option.getId())
+                .name(option.getName())
+                .icon(option.getIcon())
                 .build();
     }
 

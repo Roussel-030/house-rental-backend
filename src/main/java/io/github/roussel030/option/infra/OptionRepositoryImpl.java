@@ -40,7 +40,7 @@ public class OptionRepositoryImpl implements OptionRepository, PanacheRepository
 
     @Override
     public Optional<Option> findByIdOptional(Long id) {
-        return PanacheRepository.super.findByIdOptional(id);
+        return find("id", id).firstResultOptional();
     }
 
     @Override

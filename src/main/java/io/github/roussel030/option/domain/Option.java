@@ -1,40 +1,49 @@
 package io.github.roussel030.option.domain;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "options")
-public class Option extends PanacheEntity {
+public class Option {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "option_id")
+    private Long id;
 
     @Column(unique = true, nullable = false)
-    public String name;
+    private String name;
 
     @Column(nullable = false)
-    public String icon;
+    private String icon;
 
-    public static Builder builder() {
-        return new Builder();
+    //Default constructor
+    public Option() {
     }
 
-    public static class Builder {
-        private final Option option = new Option();
-
-        public Builder name(String name) {
-            option.name = name;
-            return this;
-        }
-
-        public Builder icon(String icon) {
-            option.icon = icon;
-            return this;
-        }
-
-        public Option build() {
-            return option;
-        }
+    //Getters
+    public Long getId() {
+        return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    //Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }
