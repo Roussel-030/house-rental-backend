@@ -1,4 +1,4 @@
-package io.github.roussel030.option.api.dto;
+package io.github.roussel030.option.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

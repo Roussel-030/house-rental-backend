@@ -1,10 +1,9 @@
-package io.github.roussel030.option.application;
+package io.github.roussel030.option.service;
 
-import io.github.roussel030.option.api.dto.OptionRequest;
-import io.github.roussel030.option.api.dto.OptionResponse;
-import io.github.roussel030.option.domain.Option;
-import io.github.roussel030.option.domain.OptionRepository;
-import io.github.roussel030.option.domain.OptionService;
+import io.github.roussel030.option.dto.OptionRequest;
+import io.github.roussel030.option.dto.OptionResponse;
+import io.github.roussel030.option.entity.Option;
+import io.github.roussel030.option.repository.OptionRepository;
 import io.github.roussel030.option.exception.OptionAlreadyExistsException;
 import io.github.roussel030.option.exception.OptionNotFoundException;
 import io.github.roussel030.shared.dto.PageResponse;

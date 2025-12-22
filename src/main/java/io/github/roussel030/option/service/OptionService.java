@@ -1,7 +1,7 @@
-package io.github.roussel030.option.domain;
+package io.github.roussel030.option.service;
 
-import io.github.roussel030.option.api.dto.OptionRequest;
-import io.github.roussel030.option.api.dto.OptionResponse;
+import io.github.roussel030.option.dto.OptionRequest;
+import io.github.roussel030.option.dto.OptionResponse;
 import io.github.roussel030.shared.dto.PageResponse;
 
 public interface OptionService {

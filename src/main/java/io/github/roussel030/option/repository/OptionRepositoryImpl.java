@@ -1,7 +1,6 @@
-package io.github.roussel030.option.infra;
+package io.github.roussel030.option.repository;
 
-import io.github.roussel030.option.domain.Option;
-import io.github.roussel030.option.domain.OptionRepository;
+import io.github.roussel030.option.entity.Option;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

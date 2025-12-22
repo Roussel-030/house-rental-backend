@@ -1,4 +1,6 @@
-package io.github.roussel030.option.domain;
+package io.github.roussel030.option.repository;
+
+import io.github.roussel030.option.entity.Option;
 
 import java.util.List;
 import java.util.Optional;
