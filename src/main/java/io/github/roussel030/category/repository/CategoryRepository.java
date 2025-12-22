@@ -1,4 +1,6 @@
-package io.github.roussel030.category.domain;
+package io.github.roussel030.category.repository;
+
+import io.github.roussel030.category.entity.Category;
 
 import java.util.Optional;
 import java.util.List;

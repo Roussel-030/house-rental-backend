@@ -1,7 +1,6 @@
-package io.github.roussel030.category.infra;
+package io.github.roussel030.category.repository;
 
-import io.github.roussel030.category.domain.Category;
-import io.github.roussel030.category.domain.CategoryRepository;
+import io.github.roussel030.category.entity.Category;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

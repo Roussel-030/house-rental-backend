@@ -1,11 +1,10 @@
-package io.github.roussel030.category.application;
+package io.github.roussel030.category.service;
 
-import io.github.roussel030.category.api.dto.CategoryRequest;
-import io.github.roussel030.category.api.dto.CategoryResponse;
-import io.github.roussel030.category.domain.Category;
-import io.github.roussel030.category.domain.CategoryService;
+import io.github.roussel030.category.dto.CategoryRequest;
+import io.github.roussel030.category.dto.CategoryResponse;
+import io.github.roussel030.category.entity.Category;
 import io.github.roussel030.category.exception.CategoryAlreadyExistsException;
-import io.github.roussel030.category.domain.CategoryRepository;
+import io.github.roussel030.category.repository.CategoryRepository;
 import io.github.roussel030.category.exception.CategoryNotFoundException;
 import io.github.roussel030.shared.dto.PageResponse;
 import jakarta.enterprise.context.ApplicationScoped;

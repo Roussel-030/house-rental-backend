@@ -1,4 +1,4 @@
-package io.github.roussel030.category.domain;
+package io.github.roussel030.category.entity;
 
 import jakarta.persistence.*;
 

@@ -1,7 +1,7 @@
-package io.github.roussel030.category.domain;
+package io.github.roussel030.category.service;
 
-import io.github.roussel030.category.api.dto.CategoryRequest;
-import io.github.roussel030.category.api.dto.CategoryResponse;
+import io.github.roussel030.category.dto.CategoryRequest;
+import io.github.roussel030.category.dto.CategoryResponse;
 import io.github.roussel030.shared.dto.PageResponse;
 
 public interface CategoryService {
