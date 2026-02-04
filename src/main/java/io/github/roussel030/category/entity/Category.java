@@ -8,17 +8,16 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
     private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;
 
-    //Default constructor
+    // Default constructor
     public Category() {
     }
 
-    //Getters
+    // Getters
     public Long getId() {
         return id;
     }
@@ -27,7 +26,7 @@ public class Category {
         return name;
     }
 
-    //Setters
+    // Setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -35,4 +34,5 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
 }

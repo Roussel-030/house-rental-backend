@@ -8,7 +8,6 @@ public class Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "option_id")
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -17,11 +16,11 @@ public class Option {
     @Column(nullable = false)
     private String icon;
 
-    //Default constructor
+    // Default constructor
     public Option() {
     }
 
-    //Getters
+    // Getters
     public Long getId() {
         return id;
     }
@@ -34,7 +33,7 @@ public class Option {
         return icon;
     }
 
-    //Setters
+    // Setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -46,4 +45,5 @@ public class Option {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
 }
