@@ -55,9 +55,10 @@ public class ActivationTokenServiceImpl implements ActivationTokenService {
                 () -> new ActivationTokenInvalidException("Invalid token")
         );
 
+        Long tokenId = activationToken.getId();
         Long userId = activationToken.getUser().getId();
 
-        activationTokenRepository.invalidateUserTokens(userId);
+        activationTokenRepository.markAsUsed(tokenId);
         userRepository.activeUser(userId);
 
         User user = getUser(userId);

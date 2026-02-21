@@ -10,5 +10,6 @@ public interface ActivationTokenRepository {
     Optional<ActivationToken> findValidToken(String hash);
     void deleteExpired();
     void invalidateUserTokens(Long userId);
+    void markAsUsed(Long tokenId);
 
 }

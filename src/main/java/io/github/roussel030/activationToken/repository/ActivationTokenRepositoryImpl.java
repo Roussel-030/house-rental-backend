@@ -34,4 +34,9 @@ public class ActivationTokenRepositoryImpl implements ActivationTokenRepository,
         update("used = true where user.id = ?1", userId);
     }
 
+    @Override
+    public void markAsUsed(Long tokenId) {
+        update("used = true where id = ?1", tokenId);
+    }
+
 }
