@@ -1,11 +1,11 @@
-package io.github.roussel030.shared.mapper;
+package io.github.roussel030.shared.handler;
 
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
+public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
 
     @Override
     public Response toResponse(Throwable throwable) {

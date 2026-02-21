@@ -9,6 +9,7 @@ import io.github.roussel030.user.exception.UserNotFoundException;
 import io.github.roussel030.user.repository.UserRepositoryImpl;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -20,14 +21,17 @@ public class ActivationTokenServiceImpl implements ActivationTokenService {
 
     private final ActivationTokenRepositoryImpl activationTokenRepository;
     private final UserRepositoryImpl userRepository;
-
     private static final SecureRandom random = new SecureRandom();
+    private final int expirationHours;
 
-    private final int HOUR_TOKEN = 24;
-
-    public ActivationTokenServiceImpl(ActivationTokenRepositoryImpl activationTokenRepository, UserRepositoryImpl userRepository) {
+    public ActivationTokenServiceImpl(
+            ActivationTokenRepositoryImpl activationTokenRepository,
+            UserRepositoryImpl userRepository,
+            @ConfigProperty(name = "activation-token.expiration-hours") int expirationHours
+    ) {
         this.activationTokenRepository = activationTokenRepository;
         this.userRepository = userRepository;
+        this.expirationHours = expirationHours;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class ActivationTokenServiceImpl implements ActivationTokenService {
         ActivationToken activationToken = new ActivationToken();
         activationToken.setUser(user);
         activationToken.setTokenHash(hash);
-        activationToken.setExpiresAt(LocalDateTime.now().plusHours(HOUR_TOKEN));
+        activationToken.setExpiresAt(LocalDateTime.now().plusHours(expirationHours));
         activationTokenRepository.createToken(activationToken);
 
         return rawToken;
