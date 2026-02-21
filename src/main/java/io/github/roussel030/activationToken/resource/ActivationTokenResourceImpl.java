@@ -16,7 +16,7 @@ public class ActivationTokenResourceImpl implements ActivationTokenResource {
 
     @Override
     public Response activate(String rawToken) {
-        UserResponse response = activationTokenService.validateToken(rawToken);
+        UserResponse response = activationTokenService.validateActivationToken(rawToken);
         return Response.ok(response).build();
     }
 

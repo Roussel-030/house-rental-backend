@@ -5,7 +5,7 @@ import io.github.roussel030.user.entity.User;
 
 public interface ActivationTokenService {
 
-    String createToken(User user);
-    UserResponse validateToken(String rawToken);
+    String createActivationToken(User user);
+    UserResponse validateActivationToken(String rawToken);
 
 }

@@ -39,4 +39,9 @@ public class ActivationTokenRepositoryImpl implements ActivationTokenRepository,
         update("used = true where id = ?1", tokenId);
     }
 
+    @Override
+    public void deleteTokensWithUser(Long userId) {
+        delete("user.id = ?1", userId);
+    }
+
 }

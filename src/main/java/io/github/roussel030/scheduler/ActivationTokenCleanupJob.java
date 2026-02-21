@@ -1,6 +1,6 @@
 package io.github.roussel030.scheduler;
 
-import io.github.roussel030.activationToken.repository.ActivationTokenRepositoryImpl;
+import io.github.roussel030.activationToken.repository.ActivationTokenRepository;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -8,9 +8,9 @@ import jakarta.transaction.Transactional;
 @ApplicationScoped
 public class ActivationTokenCleanupJob {
 
-    private final ActivationTokenRepositoryImpl activationTokenRepository;
+    private final ActivationTokenRepository activationTokenRepository;
 
-    public ActivationTokenCleanupJob(ActivationTokenRepositoryImpl activationTokenRepository) {
+    public ActivationTokenCleanupJob(ActivationTokenRepository activationTokenRepository) {
         this.activationTokenRepository = activationTokenRepository;
     }
 

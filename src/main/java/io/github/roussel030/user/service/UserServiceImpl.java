@@ -1,5 +1,6 @@
 package io.github.roussel030.user.service;
 
+import io.github.roussel030.activationToken.service.ActivationTokenService;
 import io.github.roussel030.user.dto.UserAdminRequest;
 import io.github.roussel030.user.dto.UserRequest;
 import io.github.roussel030.user.dto.UserResponse;
@@ -13,9 +14,14 @@ import jakarta.transaction.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ActivationTokenService activationTokenService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(
+            UserRepository userRepository,
+            ActivationTokenService activationTokenService
+    ) {
         this.userRepository = userRepository;
+        this.activationTokenService = activationTokenService;
     }
 
     @Override
@@ -25,7 +31,24 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException("User already exists");
         }
 
-        return null;
+        User user = new User();
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
+        user.setEmail(request.email());
+        userRepository.save(user);
+
+        String rawToken = activationTokenService.createActivationToken(user);
+
+        // TODO
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .status(user.getStatus())
+                .build();
     }
 
     @Override

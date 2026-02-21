@@ -11,5 +11,6 @@ public interface ActivationTokenRepository {
     void deleteExpired();
     void invalidateUserTokens(Long userId);
     void markAsUsed(Long tokenId);
+    void deleteTokensWithUser(Long userId);
 
 }

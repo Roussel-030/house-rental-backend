@@ -2,11 +2,11 @@ package io.github.roussel030.activationToken.service;
 
 import io.github.roussel030.activationToken.entity.ActivationToken;
 import io.github.roussel030.activationToken.exception.ActivationTokenInvalidException;
-import io.github.roussel030.activationToken.repository.ActivationTokenRepositoryImpl;
+import io.github.roussel030.activationToken.repository.ActivationTokenRepository;
 import io.github.roussel030.user.dto.UserResponse;
 import io.github.roussel030.user.entity.User;
 import io.github.roussel030.user.exception.UserNotFoundException;
-import io.github.roussel030.user.repository.UserRepositoryImpl;
+import io.github.roussel030.user.repository.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -19,14 +19,14 @@ import java.util.Base64;
 @ApplicationScoped
 public class ActivationTokenServiceImpl implements ActivationTokenService {
 
-    private final ActivationTokenRepositoryImpl activationTokenRepository;
-    private final UserRepositoryImpl userRepository;
+    private final ActivationTokenRepository activationTokenRepository;
+    private final UserRepository userRepository;
     private static final SecureRandom random = new SecureRandom();
     private final int expirationHours;
 
     public ActivationTokenServiceImpl(
-            ActivationTokenRepositoryImpl activationTokenRepository,
-            UserRepositoryImpl userRepository,
+            ActivationTokenRepository activationTokenRepository,
+            UserRepository userRepository,
             @ConfigProperty(name = "activation-token.expiration-hours") int expirationHours
     ) {
         this.activationTokenRepository = activationTokenRepository;
@@ -35,7 +35,7 @@ public class ActivationTokenServiceImpl implements ActivationTokenService {
     }
 
     @Override
-    public String createToken(User user) {
+    public String createActivationToken(User user) {
         activationTokenRepository.invalidateUserTokens(user.getId());
 
         String rawToken = generateSecureToken();
@@ -52,7 +52,7 @@ public class ActivationTokenServiceImpl implements ActivationTokenService {
 
     @Override
     @Transactional
-    public UserResponse validateToken(String rawToken) {
+    public UserResponse validateActivationToken(String rawToken) {
         String hash = sha256(rawToken);
 
         ActivationToken activationToken = activationTokenRepository.findValidToken(hash).orElseThrow(
