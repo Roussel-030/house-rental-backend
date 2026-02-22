@@ -1,4 +1,4 @@
-package io.github.roussel030.currency.domain;
+package io.github.roussel030.currency.entity;
 
 import jakarta.persistence.*;
 

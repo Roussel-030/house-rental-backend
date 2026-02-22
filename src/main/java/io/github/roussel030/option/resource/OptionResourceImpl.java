@@ -4,10 +4,12 @@ import io.github.roussel030.option.dto.OptionRequest;
 import io.github.roussel030.option.dto.OptionResponse;
 import io.github.roussel030.option.service.OptionService;
 import io.github.roussel030.shared.dto.PageResponse;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
+@ApplicationScoped
 public class OptionResourceImpl implements OptionResource {
 
     private final OptionService optionService;
@@ -24,8 +26,8 @@ public class OptionResourceImpl implements OptionResource {
 
     @Override
     public Response getOptions(int page, int size) {
-        PageResponse<OptionResponse> response = optionService.getOptions(page, size);
-        return Response.ok(response).build();
+        PageResponse<OptionResponse> responses = optionService.getOptions(page, size);
+        return Response.ok(responses).build();
     }
 
     @Override

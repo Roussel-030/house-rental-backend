@@ -1,0 +1,14 @@
+package io.github.roussel030.currency.service;
+
+import io.github.roussel030.currency.dto.CurrencyRequest;
+import io.github.roussel030.currency.dto.CurrencyResponse;
+import io.github.roussel030.shared.dto.PageResponse;
+
+public interface CurrencyService {
+
+    CurrencyResponse createCurrency(CurrencyRequest request);
+    PageResponse<CurrencyResponse> getCurrencies(int page, int size);
+    CurrencyResponse updateCurrency(Long id, CurrencyRequest request);
+    void deleteCurrency(Long id);
+
+}

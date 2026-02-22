@@ -1,4 +1,6 @@
-package io.github.roussel030.currency.domain;
+package io.github.roussel030.currency.repository;
+
+import io.github.roussel030.currency.entity.Currency;
 
 import java.util.List;
 import java.util.Optional;

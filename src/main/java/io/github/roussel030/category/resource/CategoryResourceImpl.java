@@ -4,10 +4,12 @@ import io.github.roussel030.category.dto.CategoryRequest;
 import io.github.roussel030.category.dto.CategoryResponse;
 import io.github.roussel030.category.service.CategoryService;
 import io.github.roussel030.shared.dto.PageResponse;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
+@ApplicationScoped
 public class CategoryResourceImpl implements CategoryResource {
 
     private final CategoryService categoryService;
@@ -24,8 +26,8 @@ public class CategoryResourceImpl implements CategoryResource {
 
     @Override
     public Response getCategories(int page, int size) {
-        PageResponse<CategoryResponse> response = categoryService.getCategories(page, size);
-        return Response.ok(response).build();
+        PageResponse<CategoryResponse> responses = categoryService.getCategories(page, size);
+        return Response.ok(responses).build();
     }
 
     @Override

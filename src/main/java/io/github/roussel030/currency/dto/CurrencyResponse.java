@@ -1,10 +1,22 @@
-package io.github.roussel030.currency.api.dto;
+package io.github.roussel030.currency.dto;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+@Schema(name = "CurrencyResponse", description = "Response returned for a currency")
 public record CurrencyResponse(
+
+        @Schema(description = "Unique ID of the currency", example = "1")
         Long id,
+
+        @Schema(description = "ISO 4217 currency code", example = "USD")
         String code,
+
+        @Schema(description = "Full name of the currency", example = "United States Dollar")
         String name,
+
+        @Schema(description = "Symbol of the currency", example = "$")
         String symbol
+
 ) {
 
     public static Builder builder() {
@@ -41,5 +53,5 @@ public record CurrencyResponse(
             return new CurrencyResponse(id, code, name, symbol);
         }
     }
-}
 
+}

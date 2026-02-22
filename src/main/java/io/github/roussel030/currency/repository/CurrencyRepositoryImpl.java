@@ -1,12 +1,13 @@
-package io.github.roussel030.currency.infra;
+package io.github.roussel030.currency.repository;
 
-import io.github.roussel030.currency.domain.Currency;
-import io.github.roussel030.currency.domain.CurrencyRepository;
+import io.github.roussel030.currency.entity.Currency;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class CurrencyRepositoryImpl implements CurrencyRepository, PanacheRepository<Currency> {
 
     @Override
