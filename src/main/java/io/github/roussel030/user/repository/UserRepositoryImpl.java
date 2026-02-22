@@ -3,10 +3,12 @@ package io.github.roussel030.user.repository;
 import io.github.roussel030.user.entity.User;
 import io.github.roussel030.user.enumeration.UserStatus;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class UserRepositoryImpl implements UserRepository, PanacheRepository<User> {
 
     @Override
