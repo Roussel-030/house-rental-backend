@@ -9,10 +9,11 @@ public interface UserRepository {
 
     void save(User user);
     List<User> findAllPaginated(int page, int size);
-    Optional<User> findUserById(Long id);
+    Optional<User> findByIdOptional(Long id);
     void update(User user);
     void activeUser(Long id);
     boolean removeById(Long id);
     boolean existsByEmail(String email);
+    long countALl();
 
 }

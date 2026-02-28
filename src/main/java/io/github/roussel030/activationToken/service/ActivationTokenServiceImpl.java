@@ -78,8 +78,8 @@ public class ActivationTokenServiceImpl implements ActivationTokenService {
     }
 
     private User getUser(Long userId) {
-        return userRepository.findUserById(userId).orElseThrow(
-                () -> new UserNotFoundException("User not found")
+        return userRepository.findByIdOptional(userId).orElseThrow(
+                () -> new UserNotFoundException("User not found with id: " + userId)
         );
     }
 

@@ -24,7 +24,7 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepository<Use
     }
 
     @Override
-    public Optional<User> findUserById(Long id) {
+    public Optional<User> findByIdOptional(Long id) {
         return Optional.ofNullable(findById(id));
     }
 
@@ -46,6 +46,11 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepository<Use
     @Override
     public boolean existsByEmail(String email) {
         return find("email", email).firstResultOptional().isPresent();
+    }
+
+    @Override
+    public long countALl() {
+        return count();
     }
 
 }
