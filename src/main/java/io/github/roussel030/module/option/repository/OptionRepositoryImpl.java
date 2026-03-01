@@ -28,8 +28,8 @@ public class OptionRepositoryImpl implements OptionRepository, PanacheRepository
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return deleteById(id);
+    public void deleteOption(Option option) {
+        delete(option);
     }
 
     @Override

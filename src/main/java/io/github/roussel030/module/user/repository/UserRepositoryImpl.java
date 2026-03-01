@@ -39,8 +39,8 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepository<Use
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return deleteById(id);
+    public void deleteUser(User user) {
+        delete(user);
     }
 
     @Override

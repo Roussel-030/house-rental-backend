@@ -1,5 +1,6 @@
 package io.github.roussel030.module.user.service;
 
+import io.github.roussel030.module.activationToken.repository.ActivationTokenRepository;
 import io.github.roussel030.module.activationToken.service.ActivationTokenService;
 import io.github.roussel030.shared.dto.PageResponse;
 import io.github.roussel030.module.user.dto.UserAdminRequest;
@@ -19,13 +20,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ActivationTokenService activationTokenService;
+    private final ActivationTokenRepository activationTokenRepository;
 
     public UserServiceImpl(
             UserRepository userRepository,
-            ActivationTokenService activationTokenService
+            ActivationTokenService activationTokenService,
+            ActivationTokenRepository activationTokenRepository
     ) {
         this.userRepository = userRepository;
         this.activationTokenService = activationTokenService;
+        this.activationTokenRepository = activationTokenRepository;
     }
 
     @Override
@@ -135,9 +139,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(Long id) {
-        if(!userRepository.removeById(id)) {
-            throw new UserNotFoundException("User not found with id: "+id);
-        }
+        User user = userRepository.findByIdOptional(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: "+id));
+
+        activationTokenRepository.deleteTokensWithUser(user.getId());
+        userRepository.deleteUser(user);
+
     }
 
     private Long getCountTotalUser() {

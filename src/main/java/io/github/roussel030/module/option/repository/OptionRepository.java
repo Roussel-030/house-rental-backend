@@ -10,7 +10,7 @@ public interface OptionRepository {
     void save(Option option);
     List<Option> findAllPaginated(int page, int size);
     void update(Option option);
-    boolean removeById(Long id);
+    void deleteOption(Option option);
     boolean existsByName(String name);
     Optional<Option> findByIdOptional(Long id);
     long countAll();

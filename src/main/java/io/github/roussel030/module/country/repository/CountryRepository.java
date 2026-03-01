@@ -10,7 +10,7 @@ public interface CountryRepository {
     void save(Country country);
     List<Country> findAllPaginated(int page, int size);
     void update(Country country);
-    boolean removeById(Long id);
+    void deleteCountry(Country country);
     boolean existsByName(String name);
     Optional<Country> findByIdOptional(Long id);
     long countAll();

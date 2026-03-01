@@ -90,9 +90,9 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     @Transactional
     public void deleteCurrency(Long id) {
-        if(!currencyRepository.removeById(id)) {
-            throw new CurrencyNotFoundException("Currency not found with id: " + id);
-        }
+        Currency currency = currencyRepository.findByIdOptional(id)
+                .orElseThrow(() -> new CurrencyNotFoundException("Currency not found with id: " + id));
+        currencyRepository.deleteCurrency(currency);
     }
 
     private Long getCountTotalCurrency() {

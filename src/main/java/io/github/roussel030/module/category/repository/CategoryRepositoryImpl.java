@@ -28,8 +28,8 @@ public class CategoryRepositoryImpl implements CategoryRepository, PanacheReposi
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return deleteById(id);
+    public void deleteCategory(Category category) {
+        delete(category);
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface CategoryRepository {
     void save(Category category);
     List<Category> findAllPaginated(int page, int size);
     void update(Category category);
-    boolean removeById(Long id);
+    void deleteCategory(Category category);
     boolean existsByName(String name);
     Optional<Category> findByIdOptional(Long id);
     long countAll();

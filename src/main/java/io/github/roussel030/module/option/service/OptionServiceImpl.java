@@ -87,9 +87,9 @@ public class OptionServiceImpl implements OptionService {
     @Override
     @Transactional
     public void deleteOption(Long id) {
-        if (!optionRepository.removeById(id)) {
-            throw new OptionNotFoundException("Option not found with id: " + id);
-        }
+        Option option = optionRepository.findByIdOptional(id)
+                .orElseThrow(() -> new OptionNotFoundException("Option not found with id: " + id));
+        optionRepository.deleteOption(option);
     }
 
     private Long getCountTotalOption() {

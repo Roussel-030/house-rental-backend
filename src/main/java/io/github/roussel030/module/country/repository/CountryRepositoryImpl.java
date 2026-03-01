@@ -28,8 +28,8 @@ public class CountryRepositoryImpl implements CountryRepository, PanacheReposito
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return deleteById(id);
+    public void deleteCountry(Country country) {
+        delete(country);
     }
 
     @Override

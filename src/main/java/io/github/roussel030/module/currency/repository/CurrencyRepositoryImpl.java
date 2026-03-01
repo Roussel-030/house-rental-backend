@@ -28,8 +28,8 @@ public class CurrencyRepositoryImpl implements CurrencyRepository, PanacheReposi
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return deleteById(id);
+    public void deleteCurrency(Currency currency) {
+        delete(currency);
     }
 
     @Override

@@ -81,9 +81,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void deleteCategory(Long id) {
-        if (!categoryRepository.removeById(id)) {
-            throw new CategoryNotFoundException("Category not found with id: " + id);
-        }
+        Category category = categoryRepository.findByIdOptional(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
+        categoryRepository.deleteCategory(category);
     }
 
     private Long getCountTotalCategory() {

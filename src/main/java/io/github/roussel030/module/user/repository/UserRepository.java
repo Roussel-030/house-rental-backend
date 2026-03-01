@@ -12,7 +12,7 @@ public interface UserRepository {
     Optional<User> findByIdOptional(Long id);
     void update(User user);
     void activeUser(Long id);
-    boolean removeById(Long id);
+    void deleteUser(User user);
     boolean existsByEmail(String email);
     long countALl();
 
