@@ -1,0 +1,12 @@
+package io.github.roussel030.module.category.exception;
+
+import io.github.roussel030.shared.exception.BusinessException;
+import jakarta.ws.rs.core.Response;
+
+public class CategoryAlreadyExistsException extends BusinessException {
+
+    public CategoryAlreadyExistsException(String message) {
+        super(message, Response.Status.CONFLICT);
+    }
+
+}

@@ -1,6 +1,6 @@
 package io.github.roussel030.scheduler;
 
-import io.github.roussel030.activationToken.repository.ActivationTokenRepository;
+import io.github.roussel030.module.activationToken.repository.ActivationTokenRepository;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
