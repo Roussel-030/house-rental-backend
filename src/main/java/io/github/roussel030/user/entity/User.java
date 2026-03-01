@@ -29,10 +29,6 @@ public class User {
     @Column(nullable = false)
     private UserStatus status = UserStatus.INACTIVE;
 
-    // Default constructor
-    public User() {
-    }
-
     // Getters
     public Long getId() {
         return id;

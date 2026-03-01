@@ -13,10 +13,6 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String name;
 
-    // Default constructor
-    public Category() {
-    }
-
     // Getters
     public Long getId() {
         return id;

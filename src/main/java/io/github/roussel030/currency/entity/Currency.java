@@ -19,10 +19,6 @@ public class Currency {
     @Column(nullable = false)
     private String symbol;
 
-    //Default constructor
-    public Currency() {
-    }
-
     //Getters
     public Long getId() {
         return id;
@@ -56,4 +52,5 @@ public class Currency {
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
+
 }

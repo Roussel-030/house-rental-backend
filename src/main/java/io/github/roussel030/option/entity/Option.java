@@ -16,10 +16,6 @@ public class Option {
     @Column(nullable = false)
     private String icon;
 
-    // Default constructor
-    public Option() {
-    }
-
     // Getters
     public Long getId() {
         return id;

@@ -29,12 +29,7 @@ public class ActivationToken {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Default constructor
-    public ActivationToken() {
-    }
-
     // Getters
-
     public Long getId() {
         return id;
     }
@@ -45,18 +40,6 @@ public class ActivationToken {
 
     public User getUser() {
         return user;
-    }
-
-    public LocalDateTime getExpiresAt() {
-        return expiresAt;
-    }
-
-    public boolean isUsed() {
-        return used;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     // Setters
@@ -74,14 +57,6 @@ public class ActivationToken {
 
     public void setExpiresAt(LocalDateTime expiresAt) {
         this.expiresAt = expiresAt;
-    }
-
-    public void setUsed(boolean used) {
-        this.used = used;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
 }

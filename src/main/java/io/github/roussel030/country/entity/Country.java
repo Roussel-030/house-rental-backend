@@ -14,13 +14,9 @@ public class Country {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
-
-    // Default constructor
-    public Country() {
-    }
 
     // Getters
     public Long getId() {
