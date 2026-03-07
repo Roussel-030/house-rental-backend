@@ -1,5 +1,6 @@
 package io.github.roussel030.module.country.service;
 
+import io.github.roussel030.module.city.repository.CityRepository;
 import io.github.roussel030.module.country.dto.CountryRequest;
 import io.github.roussel030.module.country.dto.CountryResponse;
 import io.github.roussel030.module.country.entity.Country;
@@ -21,18 +22,24 @@ public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
     private final CurrencyRepository currencyRepository;
+    private final CityRepository cityRepository;
 
     public CountryServiceImpl(
             CountryRepository countryRepository,
-            CurrencyRepository currencyRepository
-    ) {
+            CurrencyRepository currencyRepository,
+            CityRepository cityRepository) {
         this.countryRepository = countryRepository;
         this.currencyRepository = currencyRepository;
+        this.cityRepository = cityRepository;
     }
 
     @Override
     @Transactional
     public CountryResponse createCountry(CountryRequest request) {
+        if(countryRepository.existsByName(request.name())) {
+            throw new CountryAlreadyExistsException("Country already exists");
+        }
+
         Currency currency = currencyRepository.findByIdOptional(request.currencyId())
                 .orElseThrow(() -> new CurrencyNotFoundException("Currency not found with id: " + request.currencyId()));
 
@@ -120,6 +127,8 @@ public class CountryServiceImpl implements CountryService {
     public void deleteCountry(Long id) {
         Country country = countryRepository.findByIdOptional(id)
                 .orElseThrow(() -> new CountryNotFoundException("Country not found with id: " + id));
+
+        cityRepository.deleteByCountry(country);
         countryRepository.deleteCountry(country);
     }
 

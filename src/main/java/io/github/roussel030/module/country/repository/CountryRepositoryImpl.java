@@ -17,7 +17,10 @@ public class CountryRepositoryImpl implements CountryRepository, PanacheReposito
 
     @Override
     public List<Country> findAllPaginated(int page, int size) {
-        return findAll()
+        return find(""" 
+                          SELECT c FROM Country c
+                          LEFT JOIN FETCH c.currency
+                          """)
                 .page(page, size)
                 .list();
     }
