@@ -28,11 +28,17 @@ public interface CategoryResource {
     @GET
     @Operation(
             summary = "List house categories",
-            description = "Returns a paginated list of house categories"
+            description = "Returns a paginated list of house categories with optional search by name"
     )
     Response getCategories(
-            @Parameter(description = "Page number") @QueryParam("page") @DefaultValue("0") int page,
-            @Parameter(description = "Page size") @QueryParam("size") @DefaultValue("10") int size
+            @Parameter(description = "Search category by name")
+            @QueryParam("search") String search,
+
+            @Parameter(description = "Page number")
+            @QueryParam("page") @DefaultValue("0") int page,
+
+            @Parameter(description = "Page size")
+            @QueryParam("size") @DefaultValue("10") int size
     );
 
     @PUT

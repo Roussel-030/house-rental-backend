@@ -8,12 +8,12 @@ import java.util.List;
 public interface CategoryRepository {
 
     void save(Category category);
-    List<Category> findAllPaginated(int page, int size);
+    List<Category> findAllPaginated(String search, int page, int size);
     void update(Category category);
     void deleteCategory(Category category);
     boolean existsByName(String name);
     Optional<Category> findByIdOptional(Long id);
-    long countAll();
+    long countAll(String search);
 
 }
 

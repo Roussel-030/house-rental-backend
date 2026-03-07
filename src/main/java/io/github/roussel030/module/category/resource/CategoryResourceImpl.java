@@ -24,8 +24,8 @@ public class CategoryResourceImpl implements CategoryResource {
     }
 
     @Override
-    public Response getCategories(int page, int size) {
-        PageResponse<CategoryResponse> responses = categoryService.getCategories(page, size);
+    public Response getCategories(String search, int page, int size) {
+        PageResponse<CategoryResponse> responses = categoryService.getCategories(search, page, size);
         return Response.ok(responses).build();
     }
 

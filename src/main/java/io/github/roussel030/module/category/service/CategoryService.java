@@ -7,7 +7,7 @@ import io.github.roussel030.shared.dto.PageResponse;
 public interface CategoryService {
 
     CategoryResponse createCategory(CategoryRequest request);
-    PageResponse<CategoryResponse> getCategories(int page, int size);
+    PageResponse<CategoryResponse> getCategories(String search, int page, int size);
     CategoryResponse updateCategory(Long id, CategoryRequest request);
     void  deleteCategory(Long id);
 

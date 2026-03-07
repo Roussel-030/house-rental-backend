@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         Category category = new Category();
-        category.setName(category.getName());
+        category.setName(request.name());
         categoryRepository.save(category);
 
         return CategoryResponse.builder()
@@ -39,8 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageResponse<CategoryResponse> getCategories(int page, int size) {
-        List<CategoryResponse> categories = categoryRepository.findAllPaginated(page, size)
+    public PageResponse<CategoryResponse> getCategories(String search, int page, int size) {
+        List<CategoryResponse> categories = categoryRepository
+                .findAllPaginated(search, page, size)
                 .stream()
                 .map(category -> CategoryResponse.builder()
                         .id(category.getId())
@@ -48,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
                         .build())
                 .toList();
 
-        long total = getCountTotalCategory();
+        long total = getCountTotalCategory(search);
 
         return PageResponse.<CategoryResponse>builder()
                 .items(categories)
@@ -86,8 +87,8 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteCategory(category);
     }
 
-    private Long getCountTotalCategory() {
-        return categoryRepository.countAll();
+    private Long getCountTotalCategory(String search) {
+        return categoryRepository.countAll(search);
     }
 
 }

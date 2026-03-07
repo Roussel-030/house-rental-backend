@@ -16,8 +16,15 @@ public class CategoryRepositoryImpl implements CategoryRepository, PanacheReposi
     }
 
     @Override
-    public List<Category> findAllPaginated(int page, int size) {
-        return findAll()
+    public List<Category> findAllPaginated(String search, int page, int size) {
+
+        if (search == null || search.isBlank()) {
+            return findAll()
+                    .page(page, size)
+                    .list();
+        }
+
+        return find("LOWER(name) like LOWER(?1)", "%" + search + "%")
                 .page(page, size)
                 .list();
     }
@@ -43,8 +50,12 @@ public class CategoryRepositoryImpl implements CategoryRepository, PanacheReposi
     }
 
     @Override
-    public long countAll() {
-        return count();
+    public long countAll(String search) {
+        if (search == null || search.isBlank()) {
+            return count();
+        }
+
+        return count("LOWER(name) like ?1", "%" + search.toLowerCase() + "%");
     }
 
 }
