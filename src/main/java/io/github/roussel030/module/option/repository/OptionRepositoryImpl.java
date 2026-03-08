@@ -16,8 +16,14 @@ public class OptionRepositoryImpl implements OptionRepository, PanacheRepository
     }
 
     @Override
-    public List<Option> findAllPaginated(int page, int size) {
-        return findAll()
+    public List<Option> findAllPaginated(String search, int page, int size) {
+        if (search == null || search.isBlank()) {
+            return findAll()
+                    .page(page, size)
+                    .list();
+        }
+
+        return find("LOWER(name) like LOWER(?1)", "%" + search + "%")
                 .page(page, size)
                 .list();
     }
@@ -43,8 +49,12 @@ public class OptionRepositoryImpl implements OptionRepository, PanacheRepository
     }
 
     @Override
-    public long countAll() {
-        return count();
+    public long countAll(String search) {
+        if (search == null || search.isBlank()) {
+            return count();
+        }
+
+        return count("LOWER(name) like ?1", "%" + search.toLowerCase() + "%");
     }
 
 }

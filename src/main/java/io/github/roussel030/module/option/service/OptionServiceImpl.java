@@ -41,8 +41,8 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public PageResponse<OptionResponse> getOptions(int page, int size) {
-        List<OptionResponse> options = optionRepository.findAllPaginated(page, size)
+    public PageResponse<OptionResponse> getOptions(String search, int page, int size) {
+        List<OptionResponse> options = optionRepository.findAllPaginated(search, page, size)
                 .stream()
                 .map(option -> OptionResponse.builder()
                         .id(option.getId())
@@ -51,7 +51,7 @@ public class OptionServiceImpl implements OptionService {
                         .build())
                 .toList();
 
-        long total = getCountTotalOption();
+        long total = getCountTotalOption(search);
 
         return PageResponse.<OptionResponse>builder()
                 .items(options)
@@ -92,8 +92,8 @@ public class OptionServiceImpl implements OptionService {
         optionRepository.deleteOption(option);
     }
 
-    private Long getCountTotalOption() {
-        return optionRepository.countAll();
+    private Long getCountTotalOption(String search) {
+        return optionRepository.countAll(search);
     }
 
 }

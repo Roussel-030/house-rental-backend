@@ -30,8 +30,14 @@ public interface OptionResource {
             description = "Returns a paginated list of house options"
     )
     Response getOptions(
-            @Parameter(description = "Page number") @QueryParam("page") @DefaultValue("0") int page,
-            @Parameter(description = "Page size") @QueryParam("size") @DefaultValue("10") int size
+            @Parameter(description = "Search option by name")
+            @QueryParam("search") String search,
+
+            @Parameter(description = "Page number")
+            @QueryParam("page") @DefaultValue("0") int page,
+
+            @Parameter(description = "Page size")
+            @QueryParam("size") @DefaultValue("10") int size
     );
 
     @PUT

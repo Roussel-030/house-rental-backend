@@ -24,8 +24,8 @@ public class OptionResourceImpl implements OptionResource {
     }
 
     @Override
-    public Response getOptions(int page, int size) {
-        PageResponse<OptionResponse> responses = optionService.getOptions(page, size);
+    public Response getOptions(String search, int page, int size) {
+        PageResponse<OptionResponse> responses = optionService.getOptions(search, page, size);
         return Response.ok(responses).build();
     }
 

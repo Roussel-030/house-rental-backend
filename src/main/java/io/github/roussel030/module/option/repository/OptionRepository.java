@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface OptionRepository {
 
     void save(Option option);
-    List<Option> findAllPaginated(int page, int size);
+    List<Option> findAllPaginated(String search, int page, int size);
     void update(Option option);
     void deleteOption(Option option);
     boolean existsByName(String name);
     Optional<Option> findByIdOptional(Long id);
-    long countAll();
+    long countAll(String search);
 
 }
