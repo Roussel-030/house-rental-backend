@@ -3,6 +3,7 @@ package io.github.roussel030.module.user.repository;
 import io.github.roussel030.module.user.entity.User;
 import io.github.roussel030.module.user.enumeration.UserStatus;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
@@ -17,10 +18,18 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepository<Use
     }
 
     @Override
-    public List<User> findAllPaginated(int page, int size) {
-        return findAll()
-                .page(page, size)
-                .list();
+    public List<User> findAllPaginated(String search, int page, int size) {
+        Sort sort = Sort.descending("id");
+
+        var query = (search == null || search.isBlank())
+                ? findAll(sort)
+                : find(
+                "LOWER(email) like ?1 OR LOWER(firstName) like ?1 OR LOWER(lastName) like ?1",
+                sort,
+                "%" + search.toLowerCase() + "%"
+        );
+
+        return query.page(page, size).list();
     }
 
     @Override
@@ -49,8 +58,15 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepository<Use
     }
 
     @Override
-    public long countALl() {
-        return count();
+    public long countALl(String search) {
+        if (search == null || search.isBlank()) {
+            return count();
+        }
+
+        return count(
+                "LOWER(email) like ?1 OR LOWER(firstName) like ?1 OR LOWER(lastName) like ?1",
+                "%" + search.toLowerCase() + "%"
+        );
     }
 
 }

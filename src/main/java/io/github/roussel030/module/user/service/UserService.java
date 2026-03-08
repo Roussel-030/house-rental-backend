@@ -9,7 +9,7 @@ public interface UserService {
 
     UserResponse createUserAsUser(UserRequest request);
     UserResponse createUserAsAdmin(UserAdminRequest request);
-    PageResponse<UserResponse> getUsers(int page, int size);
+    PageResponse<UserResponse> getUsers(String search, int page, int size);
     UserResponse updateUserAsAdmin(Long id, UserAdminRequest request);
     void deleteUser(Long id);
 

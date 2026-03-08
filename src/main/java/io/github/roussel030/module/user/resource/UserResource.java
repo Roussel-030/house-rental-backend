@@ -42,6 +42,9 @@ public interface UserResource {
             description = "Returns a paginated list of users"
     )
     Response getUsers(
+            @Parameter(description = "Search user by email or firstname or lastname")
+            @QueryParam("search") String search,
+
             @Parameter(description = "Page number")
             @QueryParam("page")
             @DefaultValue("0") int page,

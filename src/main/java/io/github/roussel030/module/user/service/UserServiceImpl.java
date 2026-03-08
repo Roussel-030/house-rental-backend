@@ -85,8 +85,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageResponse<UserResponse> getUsers(int page, int size) {
-        List<UserResponse> users = userRepository.findAllPaginated(page, size)
+    public PageResponse<UserResponse> getUsers(String search, int page, int size) {
+        List<UserResponse> users = userRepository.findAllPaginated(search, page, size)
                 .stream()
                 .map(user -> UserResponse.builder()
                         .id(user.getId())
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
                         .build())
                 .toList();
 
-        long total = getCountTotalUser();
+        long total = getCountTotalUser(search);
 
         return PageResponse.<UserResponse>builder()
                 .items(users)
@@ -147,8 +147,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private Long getCountTotalUser() {
-        return userRepository.countALl();
+    private Long getCountTotalUser(String search) {
+        return userRepository.countALl(search);
     }
 
 }

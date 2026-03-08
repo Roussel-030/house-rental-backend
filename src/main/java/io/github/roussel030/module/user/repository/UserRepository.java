@@ -8,12 +8,12 @@ import java.util.Optional;
 public interface UserRepository {
 
     void save(User user);
-    List<User> findAllPaginated(int page, int size);
+    List<User> findAllPaginated(String search, int page, int size);
     Optional<User> findByIdOptional(Long id);
     void update(User user);
     void activeUser(Long id);
     void deleteUser(User user);
     boolean existsByEmail(String email);
-    long countALl();
+    long countALl(String search);
 
 }

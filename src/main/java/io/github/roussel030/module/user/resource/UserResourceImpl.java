@@ -31,8 +31,8 @@ public class UserResourceImpl implements UserResource {
     }
 
     @Override
-    public Response getUsers(int page, int size) {
-        PageResponse<UserResponse> responses = userService.getUsers(page, size);
+    public Response getUsers(String search, int page, int size) {
+        PageResponse<UserResponse> responses = userService.getUsers(search, page, size);
         return Response.ok(responses).build();
     }
 
