@@ -24,8 +24,8 @@ public class CityResourceImpl implements CityResource {
     }
 
     @Override
-    public Response getCities(int page, int size) {
-        PageResponse<CityResponse> responses = cityService.getCities(page, size);
+    public Response getCities(String search, int page, int size) {
+        PageResponse<CityResponse> responses = cityService.getCities(search, page, size);
         return Response.ok(responses).build();
     }
 

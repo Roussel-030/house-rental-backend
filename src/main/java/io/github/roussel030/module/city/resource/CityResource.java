@@ -36,6 +36,9 @@ public interface CityResource {
             description = "Returns a paginated list of cities where properties (houses) are located"
     )
     Response getCities(
+            @Parameter(description = "Search city by name")
+            @QueryParam("search") String search,
+
             @Parameter(description = "Page number (starts from 0)")
             @QueryParam("page") @DefaultValue("0") int page,
 

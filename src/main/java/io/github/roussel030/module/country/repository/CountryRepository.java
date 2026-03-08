@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface CountryRepository {
 
     void save(Country country);
-    List<Country> findAllPaginated(int page, int size);
+    List<Country> findAllPaginated(String search, int page, int size);
     void update(Country country);
     void deleteCountry(Country country);
     boolean existsByName(String name);
     Optional<Country> findByIdOptional(Long id);
-    long countAll();
+    long countAll(String search);
 
 }

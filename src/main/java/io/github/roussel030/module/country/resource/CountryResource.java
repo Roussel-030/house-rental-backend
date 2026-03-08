@@ -36,6 +36,9 @@ public interface CountryResource {
             description = "Returns a paginated list of countries where properties (houses) are located"
     )
     Response getCountries(
+            @Parameter(description = "Search country by name")
+            @QueryParam("search") String search,
+
             @Parameter(description = "Page number (starts from 0)")
             @QueryParam("page") @DefaultValue("0") int page,
 

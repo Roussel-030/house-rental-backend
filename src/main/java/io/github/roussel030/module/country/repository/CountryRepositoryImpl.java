@@ -2,6 +2,7 @@ package io.github.roussel030.module.country.repository;
 
 import io.github.roussel030.module.country.entity.Country;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
@@ -16,13 +17,15 @@ public class CountryRepositoryImpl implements CountryRepository, PanacheReposito
     }
 
     @Override
-    public List<Country> findAllPaginated(int page, int size) {
-        return find(""" 
-                          SELECT c FROM Country c
-                          LEFT JOIN FETCH c.currency
-                          """)
-                .page(page, size)
-                .list();
+    public List<Country> findAllPaginated(String search, int page, int size) {
+        Sort sort = Sort.ascending("name");
+        String baseQuery = "SELECT c FROM Country c LEFT JOIN FETCH c.currency";
+
+        var query = (search == null || search.isBlank())
+                ? find(baseQuery, sort)
+                : find(baseQuery + " WHERE LOWER(c.name) LIKE ?1", sort, "%" + search.toLowerCase() + "%");
+
+        return query.page(page, size).list();
     }
 
     @Override
@@ -46,8 +49,12 @@ public class CountryRepositoryImpl implements CountryRepository, PanacheReposito
     }
 
     @Override
-    public long countAll() {
-        return count();
+    public long countAll(String search) {
+        if (search == null || search.isBlank()) {
+            return count();
+        }
+
+        return count("LOWER(name) LIKE ?1", "%" + search.toLowerCase() + "%");
     }
 
 }

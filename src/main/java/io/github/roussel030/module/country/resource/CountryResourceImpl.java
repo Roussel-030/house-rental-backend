@@ -24,8 +24,8 @@ public class CountryResourceImpl implements CountryResource {
     }
 
     @Override
-    public Response getCountries(int page, int size) {
-        PageResponse<CountryResponse> responses = countryService.getCountries(page, size);
+    public Response getCountries(String search, int page, int size) {
+        PageResponse<CountryResponse> responses = countryService.getCountries(search, page, size);
         return Response.ok(responses).build();
     }
 

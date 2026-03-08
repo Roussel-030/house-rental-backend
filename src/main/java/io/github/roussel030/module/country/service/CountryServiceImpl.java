@@ -63,8 +63,8 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public PageResponse<CountryResponse> getCountries(int page, int size) {
-        List<CountryResponse> countries = countryRepository.findAllPaginated(page, size)
+    public PageResponse<CountryResponse> getCountries(String search, int page, int size) {
+        List<CountryResponse> countries = countryRepository.findAllPaginated(search, page, size)
                 .stream()
                 .map(country -> CountryResponse.builder()
                         .id(country.getId())
@@ -80,7 +80,7 @@ public class CountryServiceImpl implements CountryService {
                         .build())
                 .toList();
 
-        long total = getCountTotalCountry();
+        long total = getCountTotalCountry(search);
 
         return PageResponse.<CountryResponse>builder()
                 .items(countries)
@@ -132,8 +132,8 @@ public class CountryServiceImpl implements CountryService {
         countryRepository.deleteCountry(country);
     }
 
-    private Long getCountTotalCountry() {
-        return countryRepository.countAll();
+    private Long getCountTotalCountry(String search) {
+        return countryRepository.countAll(search);
     }
 
 }

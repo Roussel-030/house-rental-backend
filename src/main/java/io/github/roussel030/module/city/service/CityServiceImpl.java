@@ -60,8 +60,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public PageResponse<CityResponse> getCities(int page, int size) {
-        List<CityResponse> cities = cityRepository.findAllPaginated(page, size)
+    public PageResponse<CityResponse> getCities(String search, int page, int size) {
+        List<CityResponse> cities = cityRepository.findAllPaginated(search, page, size)
                 .stream()
                 .map(city -> CityResponse.builder()
                         .id(city.getId())
@@ -75,7 +75,7 @@ public class CityServiceImpl implements CityService {
                         .build())
                 .toList();
 
-        long total = getCountTotalCity();
+        long total = getCountTotalCity(search);
 
         return PageResponse.<CityResponse>builder()
                 .items(cities)
@@ -126,8 +126,8 @@ public class CityServiceImpl implements CityService {
         cityRepository.deleteCity(city);
     }
 
-    private Long getCountTotalCity() {
-        return cityRepository.countALl();
+    private Long getCountTotalCity(String search) {
+        return cityRepository.countALl(search);
     }
 
 }

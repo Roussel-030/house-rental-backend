@@ -3,6 +3,7 @@ package io.github.roussel030.module.city.repository;
 import io.github.roussel030.module.city.entity.City;
 import io.github.roussel030.module.country.entity.Country;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
@@ -17,13 +18,15 @@ public class CityRepositoryImpl implements CityRepository, PanacheRepository<Cit
     }
 
     @Override
-    public List<City> findAllPaginated(int page, int size) {
-        return find(""" 
-                          SELECT c FROM City c
-                          LEFT JOIN FETCH c.country
-                          """)
-                .page(page, size)
-                .list();
+    public List<City> findAllPaginated(String search, int page, int size) {
+        Sort sort = Sort.ascending("name");
+        String baseQuery = "SELECT c FROM City c LEFT JOIN FETCH c.country";
+
+        var query = (search == null || search.isBlank())
+                ? find(baseQuery, sort)
+                : find(baseQuery + " WHERE LOWER(c.name) LIKE ?1", sort, "%" + search.toLowerCase() + "%");
+
+        return query.page(page, size).list();
     }
 
     @Override
@@ -54,8 +57,12 @@ public class CityRepositoryImpl implements CityRepository, PanacheRepository<Cit
     }
 
     @Override
-    public long countALl() {
-        return count();
+    public long countALl(String search) {
+        if (search == null || search.isBlank()) {
+            return count();
+        }
+
+        return count("LOWER(name) LIKE ?1", "%" + search.toLowerCase() + "%");
     }
 
 }

@@ -96,7 +96,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     private Long getCountTotalCurrency(String search) {
-        return currencyRepository.countAll();
+        return currencyRepository.countAll(search);
     }
 
 }
