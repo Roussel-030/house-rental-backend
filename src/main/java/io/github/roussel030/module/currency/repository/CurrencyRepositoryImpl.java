@@ -2,6 +2,7 @@ package io.github.roussel030.module.currency.repository;
 
 import io.github.roussel030.module.currency.entity.Currency;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
@@ -16,10 +17,18 @@ public class CurrencyRepositoryImpl implements CurrencyRepository, PanacheReposi
     }
 
     @Override
-    public List<Currency> findAllPaginated(int page, int size) {
-        return findAll()
-                .page(page, size)
-                .list();
+    public List<Currency> findAllPaginated(String search, int page, int size) {
+        Sort sort = Sort.ascending("code");
+
+        var query = (search == null || search.isBlank())
+                ? findAll(sort)
+                : find(
+                "LOWER(code) like ?1 OR LOWER(name) like ?1",
+                sort,
+                "%" + search.toLowerCase() + "%"
+        );
+
+        return query.page(page, size).list();
     }
 
     @Override
@@ -43,8 +52,15 @@ public class CurrencyRepositoryImpl implements CurrencyRepository, PanacheReposi
     }
 
     @Override
-    public long countAll() {
-        return count();
+    public long countAll(String search) {
+        if (search == null || search.isBlank()) {
+            return count();
+        }
+
+        return count(
+                "LOWER(code) like ?1 OR LOWER(name) like ?1",
+                "%" + search.toLowerCase() + "%"
+        );
     }
 
 }

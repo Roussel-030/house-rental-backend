@@ -24,8 +24,8 @@ public class CurrencyResourceImpl implements CurrencyResource {
     }
 
     @Override
-    public Response getCurrencies(int page, int size) {
-        PageResponse<CurrencyResponse> responses = currencyService.getCurrencies(page, size);
+    public Response getCurrencies(String search, int page, int size) {
+        PageResponse<CurrencyResponse> responses = currencyService.getCurrencies(search, page, size);
         return Response.ok(responses).build();
     }
 

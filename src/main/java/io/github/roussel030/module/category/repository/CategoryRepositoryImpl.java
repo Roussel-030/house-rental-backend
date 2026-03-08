@@ -2,6 +2,7 @@ package io.github.roussel030.module.category.repository;
 
 import io.github.roussel030.module.category.entity.Category;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
@@ -17,16 +18,13 @@ public class CategoryRepositoryImpl implements CategoryRepository, PanacheReposi
 
     @Override
     public List<Category> findAllPaginated(String search, int page, int size) {
+        Sort sort = Sort.descending("id");
 
-        if (search == null || search.isBlank()) {
-            return findAll()
-                    .page(page, size)
-                    .list();
-        }
+        var query = (search == null || search.isBlank())
+                ? findAll(sort)
+                : find("LOWER(name) like ?1", sort, "%" + search.toLowerCase() + "%");
 
-        return find("LOWER(name) like LOWER(?1)", "%" + search + "%")
-                .page(page, size)
-                .list();
+        return query.page(page, size).list();
     }
 
     @Override

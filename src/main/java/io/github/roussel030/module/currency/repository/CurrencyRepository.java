@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface CurrencyRepository {
 
     void save(Currency currency);
-    List<Currency> findAllPaginated(int page, int size);
+    List<Currency> findAllPaginated(String search, int page, int size);
     void update(Currency currency);
     void deleteCurrency(Currency currency);
     boolean existsByCode(String code);
     Optional<Currency> findByIdOptional(Long id);
-    long countAll();
+    long countAll(String search);
 
 }

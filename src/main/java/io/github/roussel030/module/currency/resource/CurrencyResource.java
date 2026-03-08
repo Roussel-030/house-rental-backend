@@ -30,8 +30,14 @@ public interface CurrencyResource {
             description = "Returns a paginated list of currencies"
     )
     Response getCurrencies(
-            @Parameter(description = "Page number") @QueryParam("page") @DefaultValue("0") int page,
-            @Parameter(description = "Page size") @QueryParam("size") @DefaultValue("10") int size
+            @Parameter(description = "Search currency by code or name")
+            @QueryParam("search") String search,
+
+            @Parameter(description = "Page number")
+            @QueryParam("page") @DefaultValue("0") int page,
+
+            @Parameter(description = "Page size")
+            @QueryParam("size") @DefaultValue("10") int size
     );
 
     @PUT

@@ -42,8 +42,8 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public PageResponse<CurrencyResponse> getCurrencies(int page, int size) {
-        List<CurrencyResponse> currencies = currencyRepository.findAllPaginated(page, size)
+    public PageResponse<CurrencyResponse> getCurrencies(String search, int page, int size) {
+        List<CurrencyResponse> currencies = currencyRepository.findAllPaginated(search, page, size)
                 .stream()
                 .map(currency -> CurrencyResponse.builder()
                         .id(currency.getId())
@@ -53,7 +53,7 @@ public class CurrencyServiceImpl implements CurrencyService {
                         .build())
                 .toList();
 
-        long total = getCountTotalCurrency();
+        long total = getCountTotalCurrency(search);
 
         return PageResponse.<CurrencyResponse>builder()
                 .items(currencies)
@@ -95,7 +95,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         currencyRepository.deleteCurrency(currency);
     }
 
-    private Long getCountTotalCurrency() {
+    private Long getCountTotalCurrency(String search) {
         return currencyRepository.countAll();
     }
 
