@@ -128,6 +128,7 @@ public class CountryServiceImpl implements CountryService {
         Country country = countryRepository.findByIdOptional(id)
                 .orElseThrow(() -> new CountryNotFoundException("Country not found with id: " + id));
 
+        // TODO
         cityRepository.deleteByCountry(country);
         countryRepository.deleteCountry(country);
     }

@@ -10,6 +10,7 @@ import io.github.roussel030.module.country.dto.CountryResponse;
 import io.github.roussel030.module.country.entity.Country;
 import io.github.roussel030.module.country.exception.CountryNotFoundException;
 import io.github.roussel030.module.country.repository.CountryRepository;
+import io.github.roussel030.module.neighborhood.repository.NeighborhoodRepository;
 import io.github.roussel030.shared.dto.PageResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -20,13 +21,16 @@ import java.util.List;
 public class CityServiceImpl implements CityService {
 
     private final CityRepository cityRepository;
+    private final NeighborhoodRepository neighborhoodRepository;
     private final CountryRepository countryRepository;
 
     public CityServiceImpl(
             CityRepository cityRepository,
+            NeighborhoodRepository neighborhoodRepository,
             CountryRepository countryRepository
     ) {
         this.cityRepository = cityRepository;
+        this.neighborhoodRepository = neighborhoodRepository;
         this.countryRepository = countryRepository;
     }
 
@@ -123,6 +127,7 @@ public class CityServiceImpl implements CityService {
         City city = cityRepository.findByIdOptional(id)
                 .orElseThrow(() -> new CityNotFoundException("City not found with id: " + id));
 
+        neighborhoodRepository.deleteByCity(city);
         cityRepository.deleteCity(city);
     }
 
