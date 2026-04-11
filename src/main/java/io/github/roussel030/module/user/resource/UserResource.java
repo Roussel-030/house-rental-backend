@@ -1,6 +1,7 @@
 package io.github.roussel030.module.user.resource;
 
-import io.github.roussel030.module.user.dto.UserAdminRequest;
+import io.github.roussel030.module.user.dto.UserAdminCreateRequest;
+import io.github.roussel030.module.user.dto.UserAdminUpdateRequest;
 import io.github.roussel030.module.user.dto.UserRequest;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -33,7 +34,7 @@ public interface UserResource {
     )
     Response createUserAsAdmin(
             @Parameter(description = "User data to create")
-            @Valid UserAdminRequest request
+            @Valid UserAdminCreateRequest request
     );
 
     @GET
@@ -65,7 +66,7 @@ public interface UserResource {
             @PathParam("id") Long id,
 
             @Parameter(description = "Updated user data")
-            @Valid UserAdminRequest request
+            @Valid UserAdminUpdateRequest request
     );
 
     @DELETE

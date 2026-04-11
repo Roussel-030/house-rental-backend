@@ -1,7 +1,8 @@
 package io.github.roussel030.module.user.resource;
 
+import io.github.roussel030.module.user.dto.UserAdminUpdateRequest;
 import io.github.roussel030.shared.dto.PageResponse;
-import io.github.roussel030.module.user.dto.UserAdminRequest;
+import io.github.roussel030.module.user.dto.UserAdminCreateRequest;
 import io.github.roussel030.module.user.dto.UserRequest;
 import io.github.roussel030.module.user.dto.UserResponse;
 import io.github.roussel030.module.user.service.UserService;
@@ -25,7 +26,7 @@ public class UserResourceImpl implements UserResource {
     }
 
     @Override
-    public Response createUserAsAdmin(@Valid UserAdminRequest request) {
+    public Response createUserAsAdmin(@Valid UserAdminCreateRequest request) {
         UserResponse response = userService.createUserAsAdmin(request);
         return Response.status(Response.Status.CREATED).entity(response).build();
     }
@@ -37,7 +38,7 @@ public class UserResourceImpl implements UserResource {
     }
 
     @Override
-    public Response updateUserAsAdmin(Long id, @Valid UserAdminRequest request) {
+    public Response updateUserAsAdmin(Long id, @Valid UserAdminUpdateRequest request) {
         UserResponse response = userService.updateUserAsAdmin(id, request);
         return Response.ok(response).build();
     }

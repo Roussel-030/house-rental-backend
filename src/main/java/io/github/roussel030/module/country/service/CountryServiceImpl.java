@@ -1,6 +1,5 @@
 package io.github.roussel030.module.country.service;
 
-import io.github.roussel030.module.city.repository.CityRepository;
 import io.github.roussel030.module.country.dto.CountryRequest;
 import io.github.roussel030.module.country.dto.CountryResponse;
 import io.github.roussel030.module.country.entity.Country;
@@ -22,15 +21,13 @@ public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
     private final CurrencyRepository currencyRepository;
-    private final CityRepository cityRepository;
 
     public CountryServiceImpl(
             CountryRepository countryRepository,
-            CurrencyRepository currencyRepository,
-            CityRepository cityRepository) {
+            CurrencyRepository currencyRepository
+    ) {
         this.countryRepository = countryRepository;
         this.currencyRepository = currencyRepository;
-        this.cityRepository = cityRepository;
     }
 
     @Override
@@ -129,7 +126,6 @@ public class CountryServiceImpl implements CountryService {
                 .orElseThrow(() -> new CountryNotFoundException("Country not found with id: " + id));
 
         // TODO
-        cityRepository.deleteByCountry(country);
         countryRepository.deleteCountry(country);
     }
 
