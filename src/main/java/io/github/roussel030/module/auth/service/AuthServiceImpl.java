@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse getCurrentUserInfo() {
-        String email = securityIdentity.getPrincipal().getName(); // Use securityIdentity
+        String email = securityIdentity.getPrincipal().getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 

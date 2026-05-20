@@ -12,7 +12,10 @@ import java.util.Set;
 @ApplicationScoped
 public class JwtServiceImpl implements JwtService {
 
-    @ConfigProperty(name = "mp.jwt.verify.issuer")
+    @ConfigProperty(name = "jwt.expire-in")
+    int expire;
+
+    @ConfigProperty(name = "jwt.verify.issuer")
     String issuer;
 
     @Override
@@ -26,7 +29,7 @@ public class JwtServiceImpl implements JwtService {
                 .claim("userId", user.getId())
                 .claim("firstName", user.getFirstName())
                 .claim("lastName", user.getLastName())
-                .expiresIn(Duration.ofHours(24))
+                .expiresIn(expire)
                 .sign();
     }
 }

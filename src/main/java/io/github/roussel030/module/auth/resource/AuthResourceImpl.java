@@ -3,6 +3,7 @@ package io.github.roussel030.module.auth.resource;
 import io.github.roussel030.module.auth.dto.AuthRequest;
 import io.github.roussel030.module.auth.dto.AuthResponse;
 import io.github.roussel030.module.auth.service.AuthService;
+import io.github.roussel030.shared.security.SecurityRoles;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,7 +27,7 @@ public class AuthResourceImpl implements AuthResource {
     }
 
     @Override
-    @RolesAllowed({"USER", "ADMIN"}) // Assuming these roles can access their own info
+    @RolesAllowed({SecurityRoles.USER, SecurityRoles.ADMIN})
     public Response me() {
         AuthResponse authResponse = authService.getCurrentUserInfo();
         return Response.ok(authResponse).build();
