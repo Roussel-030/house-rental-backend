@@ -32,6 +32,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         currency.setCode(request.code());
         currency.setName(request.name());
         currency.setSymbol(request.symbol());
+        currencyRepository.save(currency);
 
         return CurrencyResponse.builder()
                 .id(currency.getId())

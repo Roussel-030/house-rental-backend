@@ -28,6 +28,7 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
 
     testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.rest-assured:rest-assured'
 }
 
