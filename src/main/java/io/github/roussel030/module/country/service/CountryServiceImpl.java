@@ -1,5 +1,6 @@
 package io.github.roussel030.module.country.service;
 
+import io.github.roussel030.module.city.repository.CityRepository;
 import io.github.roussel030.module.country.dto.CountryRequest;
 import io.github.roussel030.module.country.dto.CountryResponse;
 import io.github.roussel030.module.country.entity.Country;
@@ -10,6 +11,7 @@ import io.github.roussel030.module.currency.dto.CurrencyResponse;
 import io.github.roussel030.module.currency.entity.Currency;
 import io.github.roussel030.module.currency.exception.CurrencyNotFoundException;
 import io.github.roussel030.module.currency.repository.CurrencyRepository;
+import io.github.roussel030.module.neighborhood.repository.NeighborhoodRepository;
 import io.github.roussel030.shared.dto.PageResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -21,13 +23,19 @@ public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
     private final CurrencyRepository currencyRepository;
+    private final CityRepository cityRepository;
+    private final NeighborhoodRepository neighborhoodRepository;
 
     public CountryServiceImpl(
             CountryRepository countryRepository,
-            CurrencyRepository currencyRepository
+            CurrencyRepository currencyRepository,
+            CityRepository cityRepository,
+            NeighborhoodRepository neighborhoodRepository
     ) {
         this.countryRepository = countryRepository;
         this.currencyRepository = currencyRepository;
+        this.cityRepository = cityRepository;
+        this.neighborhoodRepository = neighborhoodRepository;
     }
 
     @Override
@@ -125,7 +133,8 @@ public class CountryServiceImpl implements CountryService {
         Country country = countryRepository.findByIdOptional(id)
                 .orElseThrow(() -> new CountryNotFoundException("Country not found with id: " + id));
 
-        // TODO
+        neighborhoodRepository.deleteByCountry(country);
+        cityRepository.deleteByCountry(country);
         countryRepository.deleteCountry(country);
     }
 

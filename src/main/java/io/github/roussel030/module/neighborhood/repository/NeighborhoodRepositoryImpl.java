@@ -1,6 +1,7 @@
 package io.github.roussel030.module.neighborhood.repository;
 
 import io.github.roussel030.module.city.entity.City;
+import io.github.roussel030.module.country.entity.Country;
 import io.github.roussel030.module.neighborhood.entity.Neighborhood;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Sort;
@@ -37,6 +38,11 @@ public class NeighborhoodRepositoryImpl implements NeighborhoodRepository, Panac
     @Override
     public void deleteByCity(City city) {
         delete("city", city);
+    }
+
+    @Override
+    public void deleteByCountry(Country country) {
+        delete("city.country", country);
     }
 
     @Override

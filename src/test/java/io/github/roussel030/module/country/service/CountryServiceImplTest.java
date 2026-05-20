@@ -1,5 +1,6 @@
 package io.github.roussel030.module.country.service;
 
+import io.github.roussel030.module.city.repository.CityRepository;
 import io.github.roussel030.module.country.dto.CountryRequest;
 import io.github.roussel030.module.country.dto.CountryResponse;
 import io.github.roussel030.module.country.entity.Country;
@@ -9,6 +10,7 @@ import io.github.roussel030.module.country.repository.CountryRepository;
 import io.github.roussel030.module.currency.entity.Currency;
 import io.github.roussel030.module.currency.exception.CurrencyNotFoundException;
 import io.github.roussel030.module.currency.repository.CurrencyRepository;
+import io.github.roussel030.module.neighborhood.repository.NeighborhoodRepository;
 import io.github.roussel030.shared.dto.PageResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,11 +34,17 @@ class CountryServiceImplTest {
     @Mock
     private CurrencyRepository currencyRepository;
 
+    @Mock
+    private CityRepository cityRepository;
+
+    @Mock
+    private NeighborhoodRepository neighborhoodRepository;
+
     private CountryServiceImpl countryService;
 
     @BeforeEach
     void setUp() {
-        countryService = new CountryServiceImpl(countryRepository, currencyRepository);
+        countryService = new CountryServiceImpl(countryRepository, currencyRepository, cityRepository, neighborhoodRepository);
     }
 
     @Test
@@ -134,6 +142,8 @@ class CountryServiceImplTest {
 
         countryService.deleteCountry(id);
 
+        verify(neighborhoodRepository).deleteByCountry(country);
+        verify(cityRepository).deleteByCountry(country);
         verify(countryRepository).deleteCountry(country);
     }
 
