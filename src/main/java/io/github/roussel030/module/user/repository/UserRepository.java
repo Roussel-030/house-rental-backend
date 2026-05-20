@@ -10,6 +10,7 @@ public interface UserRepository {
     void save(User user);
     List<User> findAllPaginated(String search, int page, int size);
     Optional<User> findByIdOptional(Long id);
+    Optional<User> findByEmail(String email);
     void update(User user);
     void activeUser(Long id);
     void deleteUser(User user);

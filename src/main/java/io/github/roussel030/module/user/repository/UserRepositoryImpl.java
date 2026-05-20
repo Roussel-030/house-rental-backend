@@ -38,6 +38,11 @@ public class UserRepositoryImpl implements UserRepository, PanacheRepository<Use
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        return find("email", email).firstResultOptional();
+    }
+
+    @Override
     public void update(User user) {
         getEntityManager().merge(user);
     }
