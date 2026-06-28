@@ -5,7 +5,6 @@ import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,4 +31,5 @@ public class JwtServiceImpl implements JwtService {
                 .expiresIn(expire)
                 .sign();
     }
+
 }
